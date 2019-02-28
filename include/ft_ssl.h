@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:58:33 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/28 19:43:10 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/28 20:44:08 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,17 @@ enum			e_command_type
 
 typedef struct	s_command
 {
-	char				*name;
+	const char			*name;
 	enum e_command_type	type;
 	const char			*options;
-	int					(*start)(char**, int*, uint8_t*);
+	int					(*start)(char**, int*, uint8_t*, const char*);
 }				t_command;
 
 t_command		find_command(char *command);
 const t_command	*get_commands(void);
+int				read_file(const char *path,
+							const char *command,
+							int options,
+							void (*hash)(char *, int));
 
 #endif

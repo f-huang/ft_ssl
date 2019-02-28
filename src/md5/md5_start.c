@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 18:56:50 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/28 20:09:23 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/28 20:42:02 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int	handle_option_string(char **av, int options, int *i, int j)
 {
 	if (!av[*i][j + 1] && (!av[*i + 1] || (av[*i + 1] && !av[*i + 1][0])))
 	{
-		ft_printf_fd(2, "./ft_ssl: %s option requires an argument -- s\n", COMMAND_NAME);
+		ft_putendl_fd("ft_ssl "COMMAND_NAME": option requires an argument -- s",
+		2);
 		return (-1);
 	}
 	else if (av[*i][j + 1])
@@ -36,18 +37,13 @@ static int	handle_option_string(char **av, int options, int *i, int j)
 
 static int	parse_option(char **av, int *i, int *options)
 {
-	int			j;
+	int		j;
 
 	j = 1;
 	while (av[*i][j])
 	{
 		if (av[*i][j] == 's')
-		{
-			if (handle_option_string(av, *options, i, j) == -1)
-				return (-1);
-			else
-				break ;
-		}
+			return (handle_option_string(av, *options, i, j) == -1 ? -1 : 0);
 		else if (av[*i][j] == 'p')
 			;
 			// handle_stdin();
@@ -57,7 +53,8 @@ static int	parse_option(char **av, int *i, int *options)
 			*options |= OPTION_QUIET;
 		else
 		{
-			ft_printf_fd(2, "./ft_ssl: illegal option -- %c\n", av[*i][j]);
+			ft_printf_fd(2, "ft_ssl "COMMAND_NAME": illegal option -- %c\n",
+			av[*i][j]);
 			return (-1);
 		}
 		++j;
@@ -65,11 +62,16 @@ static int	parse_option(char **av, int *i, int *options)
 	return (0);
 }
 
-int		md5_start(char **av, int *i, uint8_t *stop_option)
+int			md5_start(char **av,
+						int *i,
+						uint8_t *stop_option,
+						const char *command_name)
 {
 	int		options;
+	int		error;
 
 	options = 0;
+	error = 0;
 	if (*i == 0)
 		;
 	else
@@ -82,9 +84,8 @@ int		md5_start(char **av, int *i, uint8_t *stop_option)
 		else
 		{
 			*stop_option = 1;
-			ft_putstr("handle file : ");
-			ft_putendl(av[*i]);
+			error = read_file(av[*i], command_name, options, md5_execute_hash);
 		}
 	}
-	return (0);
+	return (error);
 }

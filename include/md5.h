@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 18:52:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/28 20:09:38 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/28 20:36:29 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@
 # define OPTION_REVERSE (1 << 1)
 
 
-int			md5_start(char **av, int *i, uint8_t *stop_option);
-void		md5_execute_hash(const char *input, int options);
+int			md5_start(char **av, int *i, uint8_t *stop_option, const char *command_name);
+void		md5_execute_hash(char *input, int options);
+int			md5_read_file(const char *path, int options, void (*hash)(char *, int));
+
 
 #endif

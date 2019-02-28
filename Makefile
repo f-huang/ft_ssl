@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/02/28 20:04:00 by fhuang           ###   ########.fr        #
+#    Updated: 2019/02/28 20:32:05 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,9 @@ MD5DIR		:=	md5/
 SRC			:=	main.c						\
 				find_command.c				\
 				get_commands.c				\
+				read_file.c					\
 				$(MD5DIR)md5_start.c		\
-				$(MD5DIR)md5_execute_hash.c	\
+				$(MD5DIR)md5_execute_hash.c
 
 OBJ			:=	$(SRC:%.c=$(OBJDIR)%.o)
 INC			:=	-I./$(INCDIR) -I./$(LIBFT)$(INCDIR)
