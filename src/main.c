@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 10:49:46 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/28 19:47:03 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/28 19:56:50 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	print_commands_usage(void)
 	uint8_t			i;
 
 	commands = get_commands();
-	ft_putendl("\nCommands");
+	ft_putstr("\nCommands\n");
 	i = 0;
 	while (commands[i].name)
 	{
