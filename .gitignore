@@ -1,0 +1,8 @@
+obj/
+lib/
+*.o
+*.a
+*.swp
+.DS_Store
+.cache_exists
+ft_ssl
