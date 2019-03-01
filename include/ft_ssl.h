@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:58:33 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/01 16:16:57 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/01 20:10:42 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,7 @@ int				read_file(const char *path,
 							const char *command,
 							int options,
 							void (*hash)(t_reader, int));
+
+char			*ft_utoa_hex(uint32_t n);
 
 #endif

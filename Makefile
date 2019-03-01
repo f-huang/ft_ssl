@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/03/01 16:23:36 by fhuang           ###   ########.fr        #
+#    Updated: 2019/03/01 20:10:54 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ MD5DIR		:=	md5/
 
 SRC			:=	main.c									\
 				find_command.c							\
+				ft_utoa_hex.c							\
 				get_commands.c							\
 				read_file.c								\
 				$(MD5DIR)md5_get_shift_amounts.c		\

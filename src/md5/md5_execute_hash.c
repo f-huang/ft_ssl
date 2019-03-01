@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 20:02:52 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/01 19:57:27 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/01 20:28:38 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	prepare_message(t_md5 *md5, t_reader reader)
 	const uint32_t	bits_per_int = 8 * sizeof(uint32_t);
 	uint32_t		current_int;
 	uint32_t		current_offset;
-	uint64_t		swap;
 
 	md5->msg_size = 16 * sizeof(uint32_t) * md5->n_chunks;
 	current_int = md5->input_size_in_bits / bits_per_int;
@@ -46,10 +45,7 @@ static void	prepare_message(t_md5 *md5, t_reader reader)
 		return ;
 	ft_memcpy(md5->msg, reader.content, reader.size);
 	md5->msg[current_int] |= 0x80 << current_offset;
-	// printf("\nreader { .size: %zu } message { .size: %u }\n", reader.size, md5->msg_size);
-	// printf("bef. | msg[index]: %u\n", md5->msg[current_int]);
-	swap = md5->input_size_in_bits;
-	ft_memcpy(md5->msg + ((16 * md5->n_chunks) - 2), &swap, 8);
+	ft_memcpy(md5->msg + ((16 * md5->n_chunks) - 2), &md5->input_size_in_bits, 8);
 
 	printf("\n");
 	for (int i = 0; i < 16; i++)
@@ -57,8 +53,6 @@ static void	prepare_message(t_md5 *md5, t_reader reader)
 		printf("(%i) %#x\n", i, md5->msg[i]);
 	}
 	printf("\n");
-	// printf("af.  | msg[index]: %u\n", md5->msg[current_int]);
-	// printf("Input length (in bits): %llu\nFinal message length (in bytes): %u\n", md5->input_size_in_bits, md5->msg_size);
 	printf("Int: %u\nOffset: %u\n", current_int, current_offset);
 	printf("padded message: %s", (char*)md5->msg);
 }
@@ -74,13 +68,18 @@ static const uint32_t	*break_into_chunks(uint32_t *msg)
 
 static void	print_digest(uint32_t *words)
 {
-	char			digest[16];
+	char			*tmp;
+	int				i;
 
-	ft_bzero(&digest, sizeof(char) * 16);
-	printf("\n%x", swap_32(words[0]));
-	printf("%x", swap_32(words[1]));
-	printf("%x", swap_32(words[2]));
-	printf("%x\n", swap_32(words[3]));
+	i = 0;
+	while (i < 4)
+	{
+		tmp = ft_utoa_hex(swap_32(words[i]));
+		ft_putstr(tmp);
+		ft_strdel(&tmp);
+		++i;
+	}
+	write(1, "\n", 1);
 }
 
 static void	exec_md5_algorithm(t_md5 md5)
