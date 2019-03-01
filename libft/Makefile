@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/27 16:52:41 by fhuang            #+#    #+#              #
-#    Updated: 2018/02/10 18:26:50 by fhuang           ###   ########.fr        #
+#    Updated: 2019/03/01 16:24:04 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,10 @@ NAME	:=	$(addprefix $(LIBDIR), libft.a)
 
 # ===== Standard =====
 CC		:=	clang -pipe
-CFLAGS	:=	-Wall -Wextra -Werror -g3
+CFLAGS	:=	-Wall -Wextra -Werror -g3 -fsanitize=address
 SRCDIR	:=	src/
 OBJDIR	:=	obj/
 INCDIR	:=	include/
-PRINTFDIR	:=	ft_printf/
 SRC		:=	btree_apply_infix.c		\
 			btree_apply_prefix.c	\
 			btree_apply_suffix.c	\
@@ -158,9 +157,9 @@ B_WHITE		= "\033[1;37m"
 EXEC			:= $(addprefix $(LIBDIR), $(NAME))
 CACHEF			:=	.cache_exists
 
-.PHONY: clean fclean re all ft_printf
+.PHONY: clean fclean re all
 
-all: ft_printf $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo $(B_WHITE)" → libft"$(EOC)
@@ -176,15 +175,10 @@ $(CACHEF):
 	@test -d $(LIBDIR) || mkdir $(LIBDIR)
 	@test -d $(CACHEF) || touch $(CACHEF)
 
-ft_printf:
-	@make -C $(PRINTFDIR)
-
 clean:
 	@rm -rf $(OBJDIR) $(CACHEF)
-	@make clean -C $(PRINTFDIR)
 
 fclean: clean
 	@rm -f $(NAME)
-	@make fclean -C $(PRINTFDIR)
 
 re: fclean all

@@ -6,14 +6,14 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 11:48:08 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/28 17:53:18 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/01 16:27:03 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include "ft_printf.h"
+# include <stddef.h>
 
 # define SIZE_DYNAM 16
 # define BUFF_SIZE 2056
@@ -25,8 +25,6 @@
 # define MAGENTA "\x1b[35m"
 # define CYAN "\x1b[36m"
 # define COLOR_RESET "\x1b[0m"
-
-# define FT_DEBUG(FORMAT, ...) (ft_printf("[DEBUG]  "FORMAT"\n", ##__VA_ARGS__))
 
 # define STRINGIFY_MACRO_NAME(x) #x
 # define STRINGIFY(x) STRINGIFY_MACRO_NAME(x)
