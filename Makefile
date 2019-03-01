@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/02/28 20:32:05 by fhuang           ###   ########.fr        #
+#    Updated: 2019/03/01 16:23:36 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME		:=	ft_ssl
 
 # ===== Standard =====
 CC			:=	clang -pipe
-CFLAGS		:=	-Wall -Wextra -Werror -g3
+CFLAGS		:=	-Wall -Wextra -Werror -g3 -fsanitize=address
 SRCDIR		:=	src/
 OBJDIR		:=	obj/
 INCDIR		:=	include/
@@ -25,16 +25,18 @@ LIBDIR		:=	lib/
 
 MD5DIR		:=	md5/
 
-SRC			:=	main.c						\
-				find_command.c				\
-				get_commands.c				\
-				read_file.c					\
-				$(MD5DIR)md5_start.c		\
+SRC			:=	main.c									\
+				find_command.c							\
+				get_commands.c							\
+				read_file.c								\
+				$(MD5DIR)md5_get_shift_amounts.c		\
+				$(MD5DIR)md5_get_sinus_constants.c		\
+				$(MD5DIR)md5_start.c					\
 				$(MD5DIR)md5_execute_hash.c
 
 OBJ			:=	$(SRC:%.c=$(OBJDIR)%.o)
 INC			:=	-I./$(INCDIR) -I./$(LIBFT)$(INCDIR)
-LIBPATH		:=	-L./$(LIBFT)$(LIBDIR) -lft -lftprintf
+LIBPATH		:=	-L./$(LIBFT)$(LIBDIR) -lft
 # ====================
 
 # ====== Colors ======

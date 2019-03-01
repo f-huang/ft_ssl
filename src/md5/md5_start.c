@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 18:56:50 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/28 20:42:02 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/01 16:44:28 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 #include <md5.h>
 #include <ft_ssl.h>
 
-static int	handle_option_string(char **av, int options, int *i, int j)
+static int	handle_string_option(char **av, int options, int *i, int j)
 {
+	char		*str;
+	t_reader	reader;
+
+	ft_bzero(&reader, sizeof(t_reader));
+	str = NULL;
 	if (!av[*i][j + 1] && (!av[*i + 1] || (av[*i + 1] && !av[*i + 1][0])))
 	{
 		ft_putendl_fd("ft_ssl "COMMAND_NAME": option requires an argument -- s",
@@ -23,43 +28,56 @@ static int	handle_option_string(char **av, int options, int *i, int j)
 		return (-1);
 	}
 	else if (av[*i][j + 1])
-	{
-		md5_execute_hash(av[*i] + j + 1, options);
-		return (1);
-	}
+		str = av[*i] + j + 1;
 	else
 	{
 		++(*i);
-		md5_execute_hash(av[*i], options);
-		return (1);
+		str = av[*i];
 	}
+	if (!str)
+		return (0);
+	reader = (t_reader){
+		.size = ft_strlen(str),
+		.content = ft_strdup(str)
+	};
+	md5_execute_hash(reader, options);
+	ft_memdel(&reader.content);
+	return (1);
 }
 
-static int	parse_option(char **av, int *i, int *options)
+static int	parse_options(char **av,
+						int *i,
+						int *options,
+						const char *command_name)
 {
 	int		j;
+	int		error;
 
 	j = 1;
+	error = 0;
 	while (av[*i][j])
 	{
 		if (av[*i][j] == 's')
-			return (handle_option_string(av, *options, i, j) == -1 ? -1 : 0);
+			return (handle_string_option(av, *options, i, j) == -1 ? -1 : 0);
 		else if (av[*i][j] == 'p')
-			;
-			// handle_stdin();
+		{
+			*options |= OPTION_PRINT;
+			error = read_file(NULL, command_name, *options, md5_execute_hash);
+		}
 		else if (av[*i][j] == 'r')
 			*options |= OPTION_REVERSE;
 		else if (av[*i][j] == 'q')
 			*options |= OPTION_QUIET;
 		else
 		{
-			ft_printf_fd(2, "ft_ssl "COMMAND_NAME": illegal option -- %c\n",
-			av[*i][j]);
+			ft_putstr_fd("ft_ssl "COMMAND_NAME": illegal option -- ", 2);
+			ft_putchar_fd(av[*i][j], 2);
+			ft_putstr_fd("\n", 2);
 			return (-1);
 		}
 		++j;
 	}
-	return (0);
+	return (error);
 }
 
 int			md5_start(char **av,
@@ -73,18 +91,18 @@ int			md5_start(char **av,
 	options = 0;
 	error = 0;
 	if (*i == 0)
-		;
+		error |= read_file(NULL, command_name, options, md5_execute_hash);
 	else
 	{
 		if (!*stop_option && av[*i][0] == '-' && av[*i][1])
 		{
-			if (parse_option(av, i, &options) == -1)
+			if ((error |= parse_options(av, i, &options, command_name)) == -1)
 				return (1);
 		}
 		else
 		{
 			*stop_option = 1;
-			error = read_file(av[*i], command_name, options, md5_execute_hash);
+			error |= read_file(av[*i], command_name, options, md5_execute_hash);
 		}
 	}
 	return (error);

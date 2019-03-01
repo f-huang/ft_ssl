@@ -6,49 +6,64 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 20:14:11 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/28 20:40:00 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/01 16:51:13 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <libft.h>
+#include <ft_ssl.h>
 
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 1024
 
 static int	handle_file_error(const char *path, const char *command)
 {
-	ft_printf_fd(2, "%s: %s: Could not open/read/close file or directory.\n",
-		command,
-		path);
+	ft_putstr_fd(command, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(path, 2);
+	ft_putstr_fd(": Could not open/read/close file or directory.\n", 2);
 	return (1);
 }
 
 int			read_file(const char *path,
 					const char *command,
 					int options,
-					void (*hash)(char *, int))
+					void (*hash)(t_reader, int))
 {
 	int		fd;
 	int		ret;
-	char	*file_content;
+	t_reader	reader;
+	void	*tmp;
 	char	buffer[BUFFER_SIZE + 1];
 
 	ft_putstr("Reading file : ");
-	ft_putendl(path);
-	file_content = NULL;
-	if ((fd = open(path, O_RDONLY)) == -1)
+	ft_putendl(path ? path : "(null)");
+	fd = 0;
+	ft_bzero(&reader, sizeof(t_reader));
+	if (path && (fd = open(path, O_RDONLY)) == -1)
 		return (handle_file_error(path, command));
 	while ((ret = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
-		if (file_content)
-			file_content = ft_strjoin_free(file_content, buffer);
+		if (reader.content)
+		{
+			tmp = reader.content;
+			if ((reader.content = ft_memalloc(reader.size + ret + 1)))
+			{
+				ft_memcpy(reader.content, tmp, reader.size);
+				ft_memcpy(reader.content + reader.size, buffer, ret);
+			}
+			ft_memdel(&tmp);
+		}
 		else
-			file_content = ft_strdup(buffer);
+			reader.content = ft_memdup(buffer, ret + 1);
+		reader.size += ret;
 	}
 	if (close(fd) == -1 || ret == -1)
 		return (handle_file_error(path, command));
-	hash(file_content, options);
-	ft_strdel(&file_content);
+	if (reader.content && reader.size)
+		hash(reader, options);
+	ft_memdel(&reader.content);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 10:49:46 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/28 20:42:58 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/01 16:27:16 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static void	print_commands_usage(void)
 	uint8_t			i;
 
 	commands = get_commands();
-	ft_putstr("\nCommands\n");
+	ft_putstr_fd("\nCommands\n", 2);
 	i = 0;
 	while (commands[i].name)
 	{
-		ft_putendl(commands[i].name);
+		ft_putendl_fd(commands[i].name, 2);
 		++i;
 	}
 }
@@ -32,9 +32,13 @@ static void	print_commands_usage(void)
 static int	ssl_handle_error(uint8_t error_code, const char *str)
 {
 	if (error_code == SSL_ERROR_USAGE)
-		ft_printf_fd(2, "usage: ft_ssl command\n");
+		ft_putstr_fd("usage: ft_ssl command\n", 2);
 	else if (error_code == SSL_ERROR_COMMAND_NOT_FOUND)
-		ft_printf_fd(2, "ft_ssl:Error: '%s' is an invalid command.\n", str);
+	{
+		ft_putstr_fd("ft_ssl: Error: '", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("' is an invalid command.\n", 2);
+	}
 	print_commands_usage();
 	return (EXIT_FAILURE);
 }
