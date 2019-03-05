@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:58:33 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/01 20:10:42 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/04 16:27:11 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define SSL_ERROR_USAGE 1
 # define SSL_ERROR_COMMAND_NOT_FOUND 2
 
-# define NUMBER_OF_COMMANDS 4
+# define NUMBER_OF_COMMANDS 1
 
 # define STRINGIFY_MACRO_NAME(x) #x
 # define STRINGIFY(x) STRINGIFY_MACRO_NAME(x)

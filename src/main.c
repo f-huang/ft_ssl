@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 10:49:46 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/01 16:27:16 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/05 10:49:50 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int			main(int ac, char **av)
 	int				error;
 	uint8_t			stop_option;
 
+	ft_bzero(&command, sizeof(t_command));
 	command = find_command(av[1]);
-	if (command.name == NULL)
+	if (ac < 2 || command.name == NULL)
 		return (ssl_handle_error(\
 			ac < 2 ? SSL_ERROR_USAGE : SSL_ERROR_COMMAND_NOT_FOUND, av[1]));
 	error = 0;
