@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/03/05 11:21:08 by fhuang           ###   ########.fr        #
+#    Updated: 2019/03/05 18:28:36 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ LIBFT		:=	libft/
 LIBDIR		:=	lib/
 
 MD5DIR		:=	md5/
+SHADIR		:=	sha256/
 
 SRC			:=	main.c									\
 				find_command.c							\
@@ -32,10 +33,12 @@ SRC			:=	main.c									\
 				read_file.c								\
 				swap_32.c								\
 				$(MD5DIR)md5_do_rounds.c				\
+				$(MD5DIR)md5_execute_hash.c				\
 				$(MD5DIR)md5_get_shift_amounts.c		\
 				$(MD5DIR)md5_get_sinus_constants.c		\
 				$(MD5DIR)md5_start.c					\
-				$(MD5DIR)md5_execute_hash.c
+				$(SHADIR)sha256_execute_hash.c			\
+				$(SHADIR)sha256_start.c
 
 OBJ			:=	$(SRC:%.c=$(OBJDIR)%.o)
 INC			:=	-I./$(INCDIR) -I./$(LIBFT)$(INCDIR)
@@ -66,6 +69,7 @@ all: libft $(NAME)
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	@mkdir -p $(OBJDIR)
 	@mkdir -p $(OBJDIR)$(MD5DIR)
+	@mkdir -p $(OBJDIR)$(SHADIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 	@printf $(GREEN)"•"$(EOC)
 

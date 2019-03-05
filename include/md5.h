@@ -31,7 +31,7 @@
 
 # define MD5_OPTIONS "pqrsv"
 
-# define COMMAND_NAME "md5"
+# define MD5_COMMAND "md5"
 
 # define OPTION_PRINT (1 << 0)
 # define OPTION_QUIET (1 << 1)

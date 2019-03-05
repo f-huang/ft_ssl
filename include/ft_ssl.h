@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:58:33 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/05 11:53:33 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/05 18:25:23 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 
 # define SSL_ERROR_USAGE 1
 # define SSL_ERROR_COMMAND_NOT_FOUND 2
-
-# define NUMBER_OF_COMMANDS 1
 
 # define STRINGIFY_MACRO_NAME(x) #x
 # define STRINGIFY(x) STRINGIFY_MACRO_NAME(x)
@@ -46,7 +44,6 @@ typedef struct	s_command
 {
 	const char			*name;
 	enum e_command_type	type;
-	const char			*options;
 	int					(*start)(char**, int*, uint8_t*, const char*);
 }				t_command;
 

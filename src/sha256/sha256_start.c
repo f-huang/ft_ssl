@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   md5_start.c                                        :+:      :+:    :+:   */
+/*   sha256_start.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/28 18:56:50 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/05 11:55:12 by fhuang           ###   ########.fr       */
+/*   Created: 2019/03/05 18:18:18 by fhuang            #+#    #+#             */
+/*   Updated: 2019/03/05 18:29:27 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdint.h>
+#include <stddef.h>
 #include <libft.h>
-#include <md5.h>
-#include <ft_ssl.h>
+#include <sha256.h>
 
 static int	handle_string_option(char **av, int options, int *i, int j)
 {
@@ -23,7 +24,7 @@ static int	handle_string_option(char **av, int options, int *i, int j)
 	str = NULL;
 	if (!av[*i][j + 1] && (!av[*i + 1] || (av[*i + 1] && !av[*i + 1][0])))
 	{
-		ft_putendl_fd("ft_ssl "MD5_COMMAND": option requires an argument -- s",
+		ft_putendl_fd("ft_ssl "SHA_COMMAND": option requires an argument -- s",
 		2);
 		return (-1);
 	}
@@ -42,7 +43,7 @@ static int	handle_string_option(char **av, int options, int *i, int j)
 		.name = str,
 		.type = ARG_STRING
 	};
-	md5_execute_hash(reader, options);
+	sha256_execute_hash(reader, options);
 	ft_memdel(&reader.content);
 	return (1);
 }
@@ -64,7 +65,7 @@ static int	parse_options(char **av,
 		else if (av[*i][j] == 'p')
 		{
 			*options |= OPTION_PRINT;
-			error = read_file(NULL, command_name, *options, md5_execute_hash);
+			error = read_file(NULL, command_name, *options, sha256_execute_hash);
 		}
 		else if (av[*i][j] == 'r')
 			*options |= OPTION_REVERSE;
@@ -72,7 +73,7 @@ static int	parse_options(char **av,
 			*options |= OPTION_QUIET;
 		else
 		{
-			ft_putstr_fd("ft_ssl "MD5_COMMAND": illegal option -- ", 2);
+			ft_putstr_fd("ft_ssl "SHA_COMMAND": illegal option -- ", 2);
 			ft_putchar_fd(av[*i][j], 2);
 			ft_putstr_fd("\n", 2);
 			return (-1);
@@ -82,7 +83,7 @@ static int	parse_options(char **av,
 	return (error);
 }
 
-int			md5_start(char **av,
+int			sha256_start(char **av,
 						int *i,
 						uint8_t *stop_option,
 						const char *command_name)
@@ -93,7 +94,7 @@ int			md5_start(char **av,
 	options = 0;
 	error = 0;
 	if (*i == 0)
-		error |= read_file(NULL, command_name, options, md5_execute_hash);
+		error |= read_file(NULL, command_name, options, sha256_execute_hash);
 	else
 	{
 		if (!*stop_option && av[*i][0] == '-' && av[*i][1])
@@ -104,7 +105,7 @@ int			md5_start(char **av,
 		else
 		{
 			*stop_option = 1;
-			error |= read_file(av[*i], command_name, options, md5_execute_hash);
+			error |= read_file(av[*i], command_name, options, sha256_execute_hash);
 		}
 	}
 	return (error);
