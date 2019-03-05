@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/03/05 18:28:36 by fhuang           ###   ########.fr        #
+#    Updated: 2019/03/05 19:06:38 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ LIBFT		:=	libft/
 LIBDIR		:=	lib/
 
 MD5DIR		:=	md5/
-SHADIR		:=	sha256/
+SHADIR		:=	sha/
+SHA256DIR	:=	$(SHADIR)sha256/
 
 SRC			:=	main.c									\
 				find_command.c							\
@@ -37,8 +38,9 @@ SRC			:=	main.c									\
 				$(MD5DIR)md5_get_shift_amounts.c		\
 				$(MD5DIR)md5_get_sinus_constants.c		\
 				$(MD5DIR)md5_start.c					\
-				$(SHADIR)sha256_execute_hash.c			\
-				$(SHADIR)sha256_start.c
+				$(SHA256DIR)sha256_get_round_constants.c	\
+				$(SHA256DIR)sha256_execute_hash.c			\
+				$(SHA256DIR)sha256_start.c
 
 OBJ			:=	$(SRC:%.c=$(OBJDIR)%.o)
 INC			:=	-I./$(INCDIR) -I./$(LIBFT)$(INCDIR)
@@ -63,13 +65,12 @@ WHITE		= "\033[0;37m"
 
 .PHONY: all libft norme clean fclean re
 
-all: libft $(NAME)
-
+all: $(NAME)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	@mkdir -p $(OBJDIR)
 	@mkdir -p $(OBJDIR)$(MD5DIR)
-	@mkdir -p $(OBJDIR)$(SHADIR)
+	@mkdir -p $(OBJDIR)$(SHA256DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 	@printf $(GREEN)"•"$(EOC)
 
@@ -77,8 +78,9 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 	@echo $(RED)"Missing file : $@"$(EOC)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBPATH) $(INC)
 	@echo $(GREEN)"\t✓"$(EOC)
+	@make -C $(LIBFT)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBPATH) $(INC)
 
 libft:
 	@make -C $(LIBFT)

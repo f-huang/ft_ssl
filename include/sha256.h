@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 18:18:28 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/05 18:29:25 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/05 19:03:10 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@
 # define OPTION_VERBOSE (1 << 3)
 
 
-int			sha256_start(char **av,
+int				sha256_start(char **av,
 						int *i,
 						uint8_t *stop_option,
 						const char *command_name);
-void					sha256_execute_hash(t_reader reader, int options);
+void			sha256_execute_hash(t_reader reader, int options);
+const uint32_t	*sha256_get_round_constants(void);
 
 #endif
