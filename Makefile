@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/03/01 20:10:54 by fhuang           ###   ########.fr        #
+#    Updated: 2019/03/05 11:21:08 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ SRC			:=	main.c									\
 				ft_utoa_hex.c							\
 				get_commands.c							\
 				read_file.c								\
+				swap_32.c								\
+				$(MD5DIR)md5_do_rounds.c				\
 				$(MD5DIR)md5_get_shift_amounts.c		\
 				$(MD5DIR)md5_get_sinus_constants.c		\
 				$(MD5DIR)md5_start.c					\

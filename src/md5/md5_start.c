@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 18:56:50 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/01 16:44:28 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/05 11:55:12 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ static int	handle_string_option(char **av, int options, int *i, int j)
 		return (0);
 	reader = (t_reader){
 		.size = ft_strlen(str),
-		.content = ft_strdup(str)
+		.content = ft_strdup(str),
+		.name = str,
+		.type = ARG_STRING
 	};
 	md5_execute_hash(reader, options);
 	ft_memdel(&reader.content);
