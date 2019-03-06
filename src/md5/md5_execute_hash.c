@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 20:02:52 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 11:40:53 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 11:50:17 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ void					md5_execute_hash(t_reader reader, int options)
 	prepare_message(&md5, reader);
 	exec_md5_algorithm(&md5, s, k);
 	print_digest(reader, md5.words, options);
+	ft_memdel((void**)&md5.msg);
 	(void)options;
 }
