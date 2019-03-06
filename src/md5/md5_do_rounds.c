@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 11:06:23 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/05 17:48:54 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 11:29:34 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ void			md5_do_rounds(const uint32_t *s,
 			round = H(words, i);
 		else
 			round = I(words, i);
-		round.f = round.f + words[0] + k[i] + chunks[round.g];
+		round.f += words[0] + k[i] + chunks[round.g];
 		words[0] = words[3];
 		words[3] = words[2];
 		words[2] = words[1];
-		words[1] = words[1] + ((round.f << s[i]) | (round.f >> (32 - s[i])));
+		words[1] = words[1] + left_rotate(round.f, s[i]);
 		++i;
 	}
 }

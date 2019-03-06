@@ -6,14 +6,12 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 17:48:07 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/05 19:01:56 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 11:08:28 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <ft_ssl.h>
-#include <md5.h>
-#include <sha256.h>
 
 const t_command		*get_commands(void)
 {

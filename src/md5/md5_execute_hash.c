@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 20:02:52 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/05 17:50:14 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 11:40:53 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 #include <unistd.h>
 #include <libft.h>
 #include <md5.h>
-
-static uint32_t			get_closest_multiple(uint32_t number)
-{
-	if (number != 0 && number % CHUNK_SIZE_IN_BITS == 0)
-		return (number);
-	else
-		return (((int)(number / CHUNK_SIZE_IN_BITS) + 1));
-}
 
 static void				prepare_message(t_md5 *md5, t_reader reader)
 {
@@ -77,15 +69,13 @@ static void				print_digest(t_reader reader, uint32_t *words, int options)
 
 static void				exec_md5_algorithm(t_md5 *md5,
 								const uint32_t *s,
-								const uint32_t *k,
-								const uint32_t *initial_words)
+								const uint32_t *k)
 {
 	uint32_t		chunks[16];
 	uint32_t		j;
 	uint32_t		words[N_WORDS];
 
 	ft_bzero(&chunks, sizeof(uint32_t) * 16);
-	ft_memcpy(md5->words, initial_words, N_WORDS * sizeof(uint32_t));
 	j = 0;
 	while (j < md5->n_chunks)
 	{
@@ -111,11 +101,14 @@ void					md5_execute_hash(t_reader reader, int options)
 	s = md5_get_shift_amounts();
 	k = md5_get_sinus_constants();
 	ft_bzero(&md5, sizeof(md5));
-	write(1, reader.content, reader.size);
+	ft_memcpy(md5.words, initial_words, N_WORDS * sizeof(uint32_t));
 	md5.input_size_in_bits = BITS_IN_OCTET * sizeof(char) * reader.size;
-	// printf("input size in bit: %llu\n", md5.input_size_in_bits);
-	md5.n_chunks = get_closest_multiple(md5.input_size_in_bits);
+	md5.n_chunks = ft_ceil(md5.input_size_in_bits + 65, CHUNK_SIZE_IN_BITS);
+	// write(1, reader.content, reader.size);
+	// printf("reader.size: %zu\ninput size in bit: %llu\n", reader.size, md5.input_size_in_bits);
+	// printf("n_chunks: %u\n", md5.n_chunks);
 	prepare_message(&md5, reader);
-	exec_md5_algorithm(&md5, s, k, initial_words);
+	exec_md5_algorithm(&md5, s, k);
 	print_digest(reader, md5.words, options);
+	(void)options;
 }

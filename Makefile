@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/03/05 19:06:38 by fhuang           ###   ########.fr        #
+#    Updated: 2019/03/06 11:22:58 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,11 @@ SHA256DIR	:=	$(SHADIR)sha256/
 
 SRC			:=	main.c									\
 				find_command.c							\
+				ft_ceil.c								\
 				ft_utoa_hex.c							\
 				get_commands.c							\
 				read_file.c								\
+				rotate.c								\
 				swap_32.c								\
 				$(MD5DIR)md5_do_rounds.c				\
 				$(MD5DIR)md5_execute_hash.c				\

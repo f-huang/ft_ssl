@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:58:33 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/05 18:25:23 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 11:27:55 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,26 @@ typedef struct	s_reader
 
 t_command		find_command(char *command);
 const t_command	*get_commands(void);
+
 int				read_file(const char *path,
 							const char *command,
 							int options,
 							void (*hash)(t_reader, int));
 
+uint32_t		left_rotate(uint32_t value, unsigned int count);
+uint32_t		right_rotate(uint32_t value, unsigned int count);
+
 char			*ft_utoa_hex(uint32_t n);
 uint32_t		swap_32(uint32_t value);
+uint32_t		ft_ceil(uint32_t number, uint32_t base);
+
+int				md5_start(char **av,
+							int *i,
+							uint8_t *stop_option,
+							const char *command_name);
+int				sha256_start(char **av,
+						int *i,
+						uint8_t *stop_option,
+						const char *command_name);
 
 #endif

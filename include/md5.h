@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 18:52:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/05 18:04:59 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 11:08:47 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,6 @@ typedef struct	s_md5
 	uint32_t	words[N_WORDS];
 }				t_md5;
 
-int				md5_start(char **av,
-							int *i,
-							uint8_t *stop_option,
-							const char *command_name);
 void			md5_execute_hash(t_reader reader, int options);
 void			md5_do_rounds(const uint32_t *s,
 								const uint32_t *k,
