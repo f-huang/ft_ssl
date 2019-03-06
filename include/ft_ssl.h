@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:58:33 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 11:27:55 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 15:40:55 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ uint32_t		right_rotate(uint32_t value, unsigned int count);
 
 char			*ft_utoa_hex(uint32_t n);
 uint32_t		swap_32(uint32_t value);
+uint64_t		swap_64(uint64_t value);
 uint32_t		ft_ceil(uint32_t number, uint32_t base);
 
 int				md5_start(char **av,

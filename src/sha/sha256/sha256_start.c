@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 18:18:18 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/05 18:29:27 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 11:45:17 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	handle_string_option(char **av, int options, int *i, int j)
 
 	ft_bzero(&reader, sizeof(t_reader));
 	str = NULL;
-	if (!av[*i][j + 1] && (!av[*i + 1] || (av[*i + 1] && !av[*i + 1][0])))
+	if (!av[*i][j + 1] && !av[*i + 1])
 	{
 		ft_putendl_fd("ft_ssl "SHA_COMMAND": option requires an argument -- s",
 		2);
