@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:58:33 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 15:40:55 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 19:51:58 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define STRINGIFY(x) STRINGIFY_MACRO_NAME(x)
 
 # define BITS_IN_OCTET 8
+# define STOP_READING_OPTIONS (1 << 31)
 
 enum			e_command_type
 {
@@ -44,7 +45,7 @@ typedef struct	s_command
 {
 	const char			*name;
 	enum e_command_type	type;
-	int					(*start)(char**, int*, uint8_t*, const char*);
+	int					(*start)(char**, int*, uint32_t*, const char*);
 }				t_command;
 
 typedef struct	s_reader
@@ -60,8 +61,8 @@ const t_command	*get_commands(void);
 
 int				read_file(const char *path,
 							const char *command,
-							int options,
-							void (*hash)(t_reader, int));
+							uint32_t options,
+							void (*hash)(t_reader, uint32_t));
 
 uint32_t		left_rotate(uint32_t value, unsigned int count);
 uint32_t		right_rotate(uint32_t value, unsigned int count);
@@ -73,11 +74,11 @@ uint32_t		ft_ceil(uint32_t number, uint32_t base);
 
 int				md5_start(char **av,
 							int *i,
-							uint8_t *stop_option,
+							uint32_t *options,
 							const char *command_name);
 int				sha256_start(char **av,
 						int *i,
-						uint8_t *stop_option,
+						uint32_t *options,
 						const char *command_name);
 
 #endif

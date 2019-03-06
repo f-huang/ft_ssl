@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 10:49:46 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/05 10:49:50 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 20:16:26 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			main(int ac, char **av)
 	t_command		command;
 	int				i;
 	int				error;
-	uint8_t			stop_option;
+	uint32_t		options;
 
 	ft_bzero(&command, sizeof(t_command));
 	command = find_command(av[1]);
@@ -56,19 +56,19 @@ int			main(int ac, char **av)
 		return (ssl_handle_error(\
 			ac < 2 ? SSL_ERROR_USAGE : SSL_ERROR_COMMAND_NOT_FOUND, av[1]));
 	error = 0;
-	stop_option = 0;
+	options = 0;
 	i = 0;
 	if (ac == 2)
-		command.start(av, &i, &stop_option, command.name);
+		command.start(av, &i, &options, command.name);
 	else
 	{
 		i = 1;
 		while (av[++i])
 			if (ft_strequ("--", av[i]))
-				stop_option = 1;
+				options |= STOP_READING_OPTIONS;
 			else
 			{
-				if ((error = command.start(av, &i, &stop_option, command.name)) == -1)
+				if ((error = command.start(av, &i, &options, command.name)) == -1)
 					return (EXIT_FAILURE);
 			}
 	}

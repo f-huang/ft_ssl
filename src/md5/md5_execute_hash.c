@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 20:02:52 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 11:50:17 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 20:40:37 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ static void				print_digest(t_reader reader, uint32_t *words, int options)
 	char			*tmp;
 	int				i;
 
-	if (reader.name)
+	if (!(options & OPTION_QUIET) && !(options & OPTION_REVERSE) && reader.name)
 	{
 		ft_putstr(reader.type == ARG_FILE ? (STRINGIFY(MD5)" (") : (STRINGIFY(MD5)" (\""));
 		ft_putstr(reader.name);
 		ft_putstr(reader.type == ARG_FILE ? ") = " : "\") = ");
 	}
+	if (reader.type == ARG_FILE && reader.content && options & OPTION_PRINT)
+		ft_putstr(reader.content);
 	i = 0;
 	while (i < 4)
 	{
@@ -62,6 +64,17 @@ static void				print_digest(t_reader reader, uint32_t *words, int options)
 		ft_putstr(tmp);
 		ft_strdel(&tmp);
 		++i;
+	}
+	if (!(options & OPTION_QUIET) && (options & OPTION_REVERSE) && reader.name)
+	{
+		if (!reader.name)
+			ft_putstr(" \"\"");
+		else
+		{
+			ft_putstr(" \"");
+			ft_putstr(reader.name);
+			ft_putstr("\"");
+		}
 	}
 	write(1, "\n", 1);
 	(void)options;
@@ -91,7 +104,7 @@ static void				exec_md5_algorithm(t_md5 *md5,
 	}
 }
 
-void					md5_execute_hash(t_reader reader, int options)
+void					md5_execute_hash(t_reader reader, uint32_t options)
 {
 	t_md5			md5;
 	const uint32_t	initial_words[] = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476};

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 18:18:28 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 18:01:45 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 19:51:11 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct	s_sha
 }				t_sha;
 
 
-void			sha256_execute_hash(t_reader reader, int options);
+void			sha256_execute_hash(t_reader reader, uint32_t options);
 const uint32_t	*sha256_get_round_constants(void);
 void			sha256_compress(uint32_t *words,
 						const uint32_t *k,

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 20:14:11 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/05 12:11:34 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 20:41:04 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static int	handle_file_error(const char *path, const char *command)
 	ft_putstr_fd(": Could not open/read/close file or directory.\n", 2);
 	return (1);
 }
-
+#include <stdio.h>
 int			read_file(const char *path,
 					const char *command,
-					int options,
-					void (*hash)(t_reader, int))
+					uint32_t options,
+					void (*hash)(t_reader, uint32_t))
 {
 	int			fd;
 	int			ret;

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 18:56:50 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 11:43:35 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 20:42:53 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,21 @@
 #include <md5.h>
 #include <ft_ssl.h>
 
-static int	handle_string_option(char **av, int options, int *i, int j)
+static void	handle_empty_string(uint32_t *options)
+{
+	t_reader	reader;
+
+	ft_bzero(&reader, sizeof(t_reader));
+	reader = (t_reader){
+		.size = 0,
+		.content = NULL,
+		.name = NULL,
+		.type = ARG_STRING
+	};
+	md5_execute_hash(reader, *options);
+}
+
+static int	handle_string_option(char **av, uint32_t options, int *i, int j)
 {
 	char		*str;
 	t_reader	reader;
@@ -46,25 +60,38 @@ static int	handle_string_option(char **av, int options, int *i, int j)
 	ft_memdel(&reader.content);
 	return (1);
 }
-
+#include <stdio.h>
 static int	parse_options(char **av,
 						int *i,
-						int *options,
+						uint32_t *options,
 						const char *command_name)
 {
 	int		j;
 	int		error;
+	t_reader	reader;
 
 	j = 1;
+	(void)command_name;
 	error = 0;
+	ft_bzero(&reader, sizeof(t_reader));
 	while (av[*i][j])
 	{
 		if (av[*i][j] == 's')
+		{
+			*options |= OPTION_STRING;
 			return (handle_string_option(av, *options, i, j) == -1 ? -1 : 0);
+		}
 		else if (av[*i][j] == 'p')
 		{
-			*options |= OPTION_PRINT;
-			error = read_file(NULL, command_name, *options, md5_execute_hash);
+			if (*options & OPTION_PRINT)
+			{
+				handle_empty_string(options);
+			}
+			else
+			{
+				*options |= OPTION_PRINT;
+				error = read_file(NULL, command_name, *options, md5_execute_hash);
+			}
 		}
 		else if (av[*i][j] == 'r')
 			*options |= OPTION_REVERSE;
@@ -84,27 +111,27 @@ static int	parse_options(char **av,
 
 int			md5_start(char **av,
 						int *i,
-						uint8_t *stop_option,
+						uint32_t *options,
 						const char *command_name)
 {
-	int		options;
 	int		error;
 
-	options = 0;
 	error = 0;
 	if (*i == 0)
-		error |= read_file(NULL, command_name, options, md5_execute_hash);
+		error |= read_file(NULL, command_name, *options, md5_execute_hash);
 	else
 	{
-		if (!*stop_option && av[*i][0] == '-' && av[*i][1])
+		if (!(*options & STOP_READING_OPTIONS) && av[*i][0] == '-' && av[*i][1])
 		{
-			if ((error |= parse_options(av, i, &options, command_name)) == -1)
+			if ((error |= parse_options(av, i, options, command_name)) == -1)
 				return (1);
+			if (!av[*i + 1] && !(*options & OPTION_STRING) && ((*options & OPTION_QUIET) || (*options & OPTION_REVERSE)))
+				handle_empty_string(options);
 		}
 		else
 		{
-			*stop_option = 1;
-			error |= read_file(av[*i], command_name, options, md5_execute_hash);
+			*options |= STOP_READING_OPTIONS;
+			error |= read_file(av[*i], command_name, *options, md5_execute_hash);
 		}
 	}
 	return (error);

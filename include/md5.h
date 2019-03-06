@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 18:52:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 11:08:47 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 19:58:54 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define OPTION_QUIET (1 << 1)
 # define OPTION_REVERSE (1 << 2)
 # define OPTION_VERBOSE (1 << 3)
+# define OPTION_STRING (1 << 4)
 
 # define CHUNK_SIZE_IN_BITS 512
 # define WORD_SIZE_IN_BITS 32
@@ -59,7 +60,7 @@ typedef struct	s_md5
 	uint32_t	words[N_WORDS];
 }				t_md5;
 
-void			md5_execute_hash(t_reader reader, int options);
+void			md5_execute_hash(t_reader reader, uint32_t options);
 void			md5_do_rounds(const uint32_t *s,
 								const uint32_t *k,
 								const uint32_t *chunks,

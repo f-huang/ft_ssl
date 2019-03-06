@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 18:18:18 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 11:45:17 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/06 19:53:46 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <libft.h>
 #include <sha256.h>
 
-static int	handle_string_option(char **av, int options, int *i, int j)
+static int	handle_string_option(char **av, uint32_t options, int *i, int j)
 {
 	char		*str;
 	t_reader	reader;
@@ -50,7 +50,7 @@ static int	handle_string_option(char **av, int options, int *i, int j)
 
 static int	parse_options(char **av,
 						int *i,
-						int *options,
+						uint32_t *options,
 						const char *command_name)
 {
 	int		j;
@@ -85,27 +85,25 @@ static int	parse_options(char **av,
 
 int			sha256_start(char **av,
 						int *i,
-						uint8_t *stop_option,
+						uint32_t *options,
 						const char *command_name)
 {
-	int		options;
 	int		error;
 
-	options = 0;
 	error = 0;
 	if (*i == 0)
-		error |= read_file(NULL, command_name, options, sha256_execute_hash);
+		error |= read_file(NULL, command_name, *options, sha256_execute_hash);
 	else
 	{
-		if (!*stop_option && av[*i][0] == '-' && av[*i][1])
+		if (!(*options & STOP_READING_OPTIONS) && av[*i][0] == '-' && av[*i][1])
 		{
-			if ((error |= parse_options(av, i, &options, command_name)) == -1)
+			if ((error |= parse_options(av, i, options, command_name)) == -1)
 				return (1);
 		}
 		else
 		{
-			*stop_option = 1;
-			error |= read_file(av[*i], command_name, options, sha256_execute_hash);
+			*options |= STOP_READING_OPTIONS;
+			error |= read_file(av[*i], command_name, *options, sha256_execute_hash);
 		}
 	}
 	return (error);
