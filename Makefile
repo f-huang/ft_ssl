@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/03/06 15:40:18 by fhuang           ###   ########.fr        #
+#    Updated: 2019/03/06 18:01:29 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC			:=	main.c									\
 				$(MD5DIR)md5_get_shift_amounts.c		\
 				$(MD5DIR)md5_get_sinus_constants.c		\
 				$(MD5DIR)md5_start.c					\
+				$(SHA256DIR)sha256_compress.c			\
 				$(SHA256DIR)sha256_get_round_constants.c	\
 				$(SHA256DIR)sha256_execute_hash.c			\
 				$(SHA256DIR)sha256_start.c
