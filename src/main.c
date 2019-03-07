@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 10:49:46 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 20:16:26 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/07 13:57:11 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static void	print_commands_usage(void)
 {
-	const t_command	*commands;
+	const t_command_keeper	*commands;
 	uint8_t			i;
 
 	commands = get_commands();
@@ -45,32 +45,14 @@ static int	ssl_handle_error(uint8_t error_code, const char *str)
 
 int			main(int ac, char **av)
 {
-	t_command		command;
-	int				i;
+	t_command_keeper		command;
 	int				error;
-	uint32_t		options;
 
-	ft_bzero(&command, sizeof(t_command));
+	ft_bzero(&command, sizeof(t_command_keeper));
 	command = find_command(av[1]);
 	if (ac < 2 || command.name == NULL)
 		return (ssl_handle_error(\
 			ac < 2 ? SSL_ERROR_USAGE : SSL_ERROR_COMMAND_NOT_FOUND, av[1]));
-	error = 0;
-	options = 0;
-	i = 0;
-	if (ac == 2)
-		command.start(av, &i, &options, command.name);
-	else
-	{
-		i = 1;
-		while (av[++i])
-			if (ft_strequ("--", av[i]))
-				options |= STOP_READING_OPTIONS;
-			else
-			{
-				if ((error = command.start(av, &i, &options, command.name)) == -1)
-					return (EXIT_FAILURE);
-			}
-	}
+	error = command.handle_command(ac, av, command);
 	return (error == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
 }

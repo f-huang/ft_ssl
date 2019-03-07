@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 18:18:28 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 19:51:11 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/07 14:36:17 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,11 @@
 
 # include <stdint.h>
 # include <ft_ssl.h>
+# include <message_digest.h>
 
 # define SHA_OPTIONS "pqrsv"
 
 # define SHA_COMMAND "SHA256"
-
-# define OPTION_PRINT (1 << 0)
-# define OPTION_QUIET (1 << 1)
-# define OPTION_REVERSE (1 << 2)
-# define OPTION_VERBOSE (1 << 3)
 
 # define CHUNK_SIZE_IN_BITS 512
 # define WORD_SIZE_IN_BITS 32

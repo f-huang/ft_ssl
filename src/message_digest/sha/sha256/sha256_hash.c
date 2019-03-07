@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256_execute_hash.c                              :+:      :+:    :+:   */
+/*   sha256_hash.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 18:26:53 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 19:54:17 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/07 14:36:57 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void				exec_sha256_algorithm(t_sha *sha,
 	}
 }
 
-void			sha256_execute_hash(t_reader reader, uint32_t options)
+void			sha256_hash(t_reader reader, uint32_t options)
 {
 	t_sha			sha;
 	const uint32_t	initial_words[] = {

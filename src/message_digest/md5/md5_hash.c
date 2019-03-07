@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   md5_execute_hash.c                                 :+:      :+:    :+:   */
+/*   md5_hash.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 20:02:52 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 20:40:37 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/07 14:38:35 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void				exec_md5_algorithm(t_md5 *md5,
 	}
 }
 
-void					md5_execute_hash(t_reader reader, uint32_t options)
+void					md5_hash(t_reader reader, uint32_t options)
 {
 	t_md5			md5;
 	const uint32_t	initial_words[] = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476};

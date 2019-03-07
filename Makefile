@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/03/06 18:01:29 by fhuang           ###   ########.fr        #
+#    Updated: 2019/03/07 14:37:26 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,9 @@ INCDIR		:=	include/
 LIBFT		:=	libft/
 LIBDIR		:=	lib/
 
-MD5DIR		:=	md5/
-SHADIR		:=	sha/
+DIGESTDIR	:=	message_digest/
+MD5DIR		:=	$(DIGESTDIR)md5/
+SHADIR		:=	$(DIGESTDIR)sha/
 SHA256DIR	:=	$(SHADIR)sha256/
 
 SRC			:=	main.c									\
@@ -36,15 +37,14 @@ SRC			:=	main.c									\
 				rotate.c								\
 				swap_32.c								\
 				swap_64.c								\
+				$(DIGESTDIR)handle_command_message_digest.c	\
 				$(MD5DIR)md5_do_rounds.c				\
-				$(MD5DIR)md5_execute_hash.c				\
+				$(MD5DIR)md5_hash.c						\
 				$(MD5DIR)md5_get_shift_amounts.c		\
 				$(MD5DIR)md5_get_sinus_constants.c		\
-				$(MD5DIR)md5_start.c					\
 				$(SHA256DIR)sha256_compress.c			\
 				$(SHA256DIR)sha256_get_round_constants.c	\
-				$(SHA256DIR)sha256_execute_hash.c			\
-				$(SHA256DIR)sha256_start.c
+				$(SHA256DIR)sha256_hash.c
 
 OBJ			:=	$(SRC:%.c=$(OBJDIR)%.o)
 INC			:=	-I./$(INCDIR) -I./$(LIBFT)$(INCDIR)
