@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   md5_do_rounds.c                                    :+:      :+:    :+:   */
+/*   md5_compress.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 11:06:23 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 11:29:34 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/07 15:26:07 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static t_md5_round	I(uint32_t *words, uint32_t i)
 	};
 }
 #include <stdio.h>
-void			md5_do_rounds(const uint32_t *s,
+void			md5_compress(const uint32_t *s,
 							const uint32_t *k,
 							const uint32_t *chunks,
 							uint32_t words[N_WORDS])
@@ -55,7 +55,7 @@ void			md5_do_rounds(const uint32_t *s,
 	t_md5_round		round;
 
 	i = 0;
-	while (i < 64)
+	while (i < N_ROUNDS)
 	{
 		// printf("[%d] A=%u B=%u C=%u D=%u\n", i, words[0], words[1], words[2], words[3]);
 		if (i >= 0 && i < 16)

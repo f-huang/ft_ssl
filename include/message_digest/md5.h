@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 18:52:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/07 14:50:19 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/07 14:55:11 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define N_WORDS_IN_CHUNK (CHUNK_SIZE_IN_BITS / WORD_SIZE_IN_BITS)
 
 # define N_WORDS 4
+# define N_ROUNDS 64
 
 typedef struct	s_md5_round
 {
@@ -56,7 +57,7 @@ typedef struct	s_md5
 	uint32_t	words[N_WORDS];
 }				t_md5;
 
-void			md5_do_rounds(const uint32_t *s,
+void			md5_compress(const uint32_t *s,
 								const uint32_t *k,
 								const uint32_t *chunks,
 								uint32_t words[N_WORDS]);

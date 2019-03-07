@@ -6,13 +6,13 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 18:26:53 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/07 14:50:17 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/07 15:30:10 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ssl.h>
 #include <libft.h>
-#include <message_digest/sha256.h>
+#include <message_digest/sha512.h>
 
 static void		prepare_message(t_sha *sha, t_reader reader)
 {
@@ -57,7 +57,7 @@ static void				print_digest(t_reader reader, uint32_t *words, int options)
 	(void)options;
 }
 
-static uint32_t	sigma_lowercase(uint32_t value, unsigned int subscript)
+static uint32_t	sigma(uint32_t value, unsigned int subscript)
 {
 	if (subscript == 0)
 		return (right_rotate(value, 7)
@@ -70,10 +70,10 @@ static uint32_t	sigma_lowercase(uint32_t value, unsigned int subscript)
 	return (0);
 }
 
-static void				exec_sha256_algorithm(t_sha *sha,
+static void				exec_sha512_algorithm(t_sha *sha,
 								const uint32_t *k)
 {
-	uint32_t		chunk[64];
+	uint32_t		chunk[N_ROUNDS];
 	uint32_t		tmp_words[N_WORDS];
 	uint32_t		j;
 	int				i;
@@ -86,10 +86,10 @@ static void				exec_sha256_algorithm(t_sha *sha,
 		ft_memcpy(&tmp_words, sha->words, N_WORDS * sizeof(uint32_t));
 		i = 15;
 		while (++i < 64)
-			chunk[i] = sigma_lowercase(chunk[i - 15], 0)
-					+ sigma_lowercase(chunk[i - 2], 1)
+			chunk[i] = sigma(chunk[i - 15], 0)
+					+ sigma(chunk[i - 2], 1)
 					+ chunk[i - 16] + chunk[i - 7];
-		sha256_compress(tmp_words, k, chunk);
+		sha512_compress(tmp_words, k, chunk);
 		i = -1;
 		while (++i < N_WORDS)
 			sha->words[i] += tmp_words[i];
@@ -97,18 +97,20 @@ static void				exec_sha256_algorithm(t_sha *sha,
 	}
 }
 
-void			sha256_hash(t_reader reader, uint32_t options)
+void			sha512_hash(t_reader reader, uint32_t options)
 {
 	t_sha			sha;
 	const uint32_t	initial_words[] = {
-		0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A,
-		0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19
+		0x6A09E667F3BCC908, 0xBB67AE8584CAA73B,
+		0x3C6EF372FE94F82B, 0xA54FF53A5F1D36F1,
+		0x510E527FADE682D1, 0x9B05688C2B3E6C1F,
+		0x1F83D9ABFB41BD6B, 0x5BE0CD19137E2179
 	};
 	const uint32_t	*k;
 
 	ft_bzero(&sha, sizeof(t_sha));
 	ft_memcpy(sha.words, initial_words, N_WORDS * sizeof(uint32_t));
-	k = sha256_get_round_constants();
+	k = sha512_get_round_constants();
 	sha.input_size_in_bits = BITS_IN_OCTET * sizeof(char) * reader.size;
 	sha.n_chunks = ft_ceil(sha.input_size_in_bits +
 						(((CHUNK_SIZE_IN_BITS - 64) -
@@ -116,6 +118,6 @@ void			sha256_hash(t_reader reader, uint32_t options)
 						% CHUNK_SIZE_IN_BITS) + 65,
 						CHUNK_SIZE_IN_BITS);
 	prepare_message(&sha, reader);
-	exec_sha256_algorithm(&sha, k);
+	exec_sha512_algorithm(&sha, k);
 	print_digest(reader, sha.words, options);
 }

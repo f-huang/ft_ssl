@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/03/07 14:37:26 by fhuang           ###   ########.fr        #
+#    Updated: 2019/03/07 15:25:46 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ DIGESTDIR	:=	message_digest/
 MD5DIR		:=	$(DIGESTDIR)md5/
 SHADIR		:=	$(DIGESTDIR)sha/
 SHA256DIR	:=	$(SHADIR)sha256/
+SHA512DIR	:=	$(SHADIR)sha512/
 
 SRC			:=	main.c									\
 				find_command.c							\
@@ -38,7 +39,7 @@ SRC			:=	main.c									\
 				swap_32.c								\
 				swap_64.c								\
 				$(DIGESTDIR)handle_command_message_digest.c	\
-				$(MD5DIR)md5_do_rounds.c				\
+				$(MD5DIR)md5_compress.c					\
 				$(MD5DIR)md5_hash.c						\
 				$(MD5DIR)md5_get_shift_amounts.c		\
 				$(MD5DIR)md5_get_sinus_constants.c		\

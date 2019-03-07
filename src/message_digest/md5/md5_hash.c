@@ -94,7 +94,7 @@ static void				exec_md5_algorithm(t_md5 *md5,
 	{
 		ft_memcpy(words, md5->words, N_WORDS * sizeof(uint32_t));
 		ft_memcpy(chunks, md5->msg + j * 16, 64);
-		md5_do_rounds(s, k, chunks, words);
+		md5_compress(s, k, chunks, words);
 		md5->words[0] += words[0];
 		md5->words[1] += words[1];
 		md5->words[2] += words[2];

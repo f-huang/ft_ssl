@@ -6,20 +6,20 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:55:23 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 18:07:53 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/07 15:28:15 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_ssl.h>
+#include <message_digest/sha256.h>
 
-static uint32_t	sigma_uppercase_0(uint32_t value)
+static uint32_t	sum_0(uint32_t value)
 {
 	return (right_rotate(value, 2)
 				^ right_rotate(value, 13)
 				^ right_rotate(value, 22));
 }
 
-static uint32_t	sigma_uppercase_1(uint32_t value)
+static uint32_t	sum_1(uint32_t value)
 {
 	return (right_rotate(value, 6)
 			^ right_rotate(value, 11)
@@ -45,12 +45,12 @@ void	sha256_compress(uint32_t *words,
 	uint32_t		tmp2;
 
 	i = 0;
-	while (i < 64)
+	while (i < N_ROUNDS)
 	{
-		tmp1 = words[7] + sigma_uppercase_1(words[4])
+		tmp1 = words[7] + sum_1(words[4])
 				+ ch(words[4], words[5], words[6])
 				+ k[i] + chunk[i];
-		tmp2 = sigma_uppercase_0(words[0]) + maj(words[0], words[1], words[2]);
+		tmp2 = sum_0(words[0]) + maj(words[0], words[1], words[2]);
 		words[7] = words[6];
 		words[6] = words[5];
 		words[5] = words[4];
