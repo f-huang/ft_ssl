@@ -5,4 +5,6 @@ if [ "$1" = "md5" ]; then
 elif [ "$1" = "sha256" ]; then
 	argv[1]=()
 	diff <(./ft_ssl sha256 $@ | rev | sed -e 's/ = .*//' | rev) <(shasum -a 256 $@ | sed 's/ .*//')
+else
+	echo "Wrong command."
 fi
