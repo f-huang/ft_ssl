@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 18:52:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/07 14:36:15 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/07 14:50:19 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdint.h>
 # include <ft_ssl.h>
-# include <message_digest.h>
+# include <message_digest/message_digest.h>
 /*
 **	OPTIONS
 **	-s string

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdint.h>
-#include <md5.h>
+#include <message_digest/md5.h>
 
 static t_md5_round	F(uint32_t *words, uint32_t i)
 {

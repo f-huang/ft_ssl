@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <libft.h>
-#include <md5.h>
+#include <message_digest/md5.h>
 
 static void				prepare_message(t_md5 *md5, t_reader reader)
 {

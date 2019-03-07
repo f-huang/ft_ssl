@@ -13,7 +13,7 @@
 #include <stdint.h>
 #include <libft.h>
 #include <ft_ssl.h>
-#include <message_digest.h>
+#include <message_digest/message_digest.h>
 
 static int	handle_error(const char *command, int error, int c)
 {

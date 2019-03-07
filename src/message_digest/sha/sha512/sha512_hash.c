@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256_hash.c                                      :+:      :+:    :+:   */
+/*   sha512_hash.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 18:26:53 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/07 14:36:57 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/07 14:50:17 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <libft.h>
 #include <message_digest/sha256.h>
 
-#include <stdio.h>
 static void		prepare_message(t_sha *sha, t_reader reader)
 {
 	const uint32_t	bits_per_int = BITS_IN_OCTET * sizeof(uint32_t);
