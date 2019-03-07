@@ -48,7 +48,7 @@ static void				print_digest(t_reader reader, uint32_t *words, int options)
 	i = 0;
 	while (i < 8)
 	{
-		tmp = ft_utoa_hex(words[i]);
+		tmp = ft_utoa_hex_32(words[i]);
 		ft_putstr(tmp);
 		ft_strdel(&tmp);
 		++i;

@@ -60,7 +60,7 @@ static void				print_digest(t_reader reader, uint32_t *words, int options)
 	i = 0;
 	while (i < 4)
 	{
-		tmp = ft_utoa_hex(swap_32(words[i]));
+		tmp = ft_utoa_hex_32(swap_32(words[i]));
 		ft_putstr(tmp);
 		ft_strdel(&tmp);
 		++i;

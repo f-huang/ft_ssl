@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/03/07 15:25:46 by fhuang           ###   ########.fr        #
+#    Updated: 2019/03/07 18:46:26 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SHA512DIR	:=	$(SHADIR)sha512/
 SRC			:=	main.c									\
 				find_command.c							\
 				ft_ceil.c								\
-				ft_utoa_hex.c							\
+				ft_utoa_hex_32.c						\
+				ft_utoa_hex_64.c						\
 				get_commands.c							\
 				read_file.c								\
 				rotate.c								\
@@ -45,7 +46,10 @@ SRC			:=	main.c									\
 				$(MD5DIR)md5_get_sinus_constants.c		\
 				$(SHA256DIR)sha256_compress.c			\
 				$(SHA256DIR)sha256_get_round_constants.c	\
-				$(SHA256DIR)sha256_hash.c
+				$(SHA256DIR)sha256_hash.c				\
+				$(SHA512DIR)sha512_compress.c			\
+				$(SHA512DIR)sha512_get_round_constants.c	\
+				$(SHA512DIR)sha512_hash.c
 
 OBJ			:=	$(SRC:%.c=$(OBJDIR)%.o)
 INC			:=	-I./$(INCDIR) -I./$(LIBFT)$(INCDIR)
@@ -76,6 +80,7 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 	@mkdir -p $(OBJDIR)
 	@mkdir -p $(OBJDIR)$(MD5DIR)
 	@mkdir -p $(OBJDIR)$(SHA256DIR)
+	@mkdir -p $(OBJDIR)$(SHA512DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 	@printf $(GREEN)"•"$(EOC)
 

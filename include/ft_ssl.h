@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:58:33 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/07 14:37:49 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/07 18:47:05 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int				read_file(const char *path,
 uint32_t		left_rotate(uint32_t value, unsigned int count);
 uint32_t		right_rotate(uint32_t value, unsigned int count);
 
-char			*ft_utoa_hex(uint32_t n);
+char			*ft_utoa_hex_32(uint32_t n);
+char			*ft_utoa_hex_64(uint64_t n);
 uint32_t		swap_32(uint32_t value);
 uint64_t		swap_64(uint64_t value);
 uint32_t		ft_ceil(uint32_t number, uint32_t base);
@@ -85,5 +86,6 @@ int				handle_command_message_digest(int ac, char **av,
 								const t_command_keeper command_keeper);
 void			md5_hash(t_reader reader, uint32_t options);
 void			sha256_hash(t_reader reader, uint32_t options);
+void			sha512_hash(t_reader reader, uint32_t options);
 
 #endif
