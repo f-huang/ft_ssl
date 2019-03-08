@@ -14,16 +14,16 @@
 
 static uint32_t	sum_0(uint32_t value)
 {
-	return (right_rotate(value, 2)
-				^ right_rotate(value, 13)
-				^ right_rotate(value, 22));
+	return (right_rotate_32(value, 2)
+				^ right_rotate_32(value, 13)
+				^ right_rotate_32(value, 22));
 }
 
 static uint32_t	sum_1(uint32_t value)
 {
-	return (right_rotate(value, 6)
-			^ right_rotate(value, 11)
-			^ right_rotate(value, 25));
+	return (right_rotate_32(value, 6)
+			^ right_rotate_32(value, 11)
+			^ right_rotate_32(value, 25));
 }
 
 static uint32_t	ch(uint32_t x, uint32_t y, uint32_t z)

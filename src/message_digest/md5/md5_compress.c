@@ -70,7 +70,7 @@ void			md5_compress(const uint32_t *s,
 		words[0] = words[3];
 		words[3] = words[2];
 		words[2] = words[1];
-		words[1] = words[1] + left_rotate(round.f, s[i]);
+		words[1] = words[1] + left_rotate_32(round.f, s[i]);
 		++i;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 20:14:11 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/06 20:41:04 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/08 15:28:05 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <libft.h>
 #include <ft_ssl.h>
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 4096
 
 static int	handle_file_error(const char *path, const char *command)
 {

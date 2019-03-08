@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:58:33 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/07 18:47:05 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/08 13:16:04 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,11 @@ int				read_file(const char *path,
 							uint32_t options,
 							void (*hash)(t_reader, uint32_t));
 
-uint32_t		left_rotate(uint32_t value, unsigned int count);
-uint32_t		right_rotate(uint32_t value, unsigned int count);
+uint32_t		left_rotate_32(uint32_t value, unsigned int count);
+uint32_t		right_rotate_32(uint32_t value, unsigned int count);
+
+uint64_t		left_rotate_64(uint64_t value, unsigned int count);
+uint64_t		right_rotate_64(uint64_t value, unsigned int count);
 
 char			*ft_utoa_hex_32(uint32_t n);
 char			*ft_utoa_hex_64(uint64_t n);

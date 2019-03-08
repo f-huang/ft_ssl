@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 18:18:28 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/07 18:41:40 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/08 14:24:37 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define SHA_COMMAND "SHA512"
 
 # define CHUNK_SIZE_IN_BITS 1024
-# define WORD_SIZE_IN_BITS 32
+# define WORD_SIZE_IN_BITS 64
 # define N_WORDS_IN_CHUNK (CHUNK_SIZE_IN_BITS / WORD_SIZE_IN_BITS)
 
 # define N_WORDS 8
@@ -31,8 +31,8 @@
 
 typedef struct	s_sha
 {
-	uint32_t	*msg;
-	uint32_t	msg_size;
+	uint64_t	*msg;
+	uint64_t	msg_size;
 	uint32_t	n_chunks;
 	unsigned char	input_size_in_bits[16];
 	uint64_t	words[N_WORDS];

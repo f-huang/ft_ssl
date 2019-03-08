@@ -6,13 +6,14 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 18:26:53 by fhuang            #+#    #+#             */
-/*   Updated: 2019/03/07 15:30:33 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/03/08 13:34:14 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ssl.h>
 #include <libft.h>
 #include <message_digest/sha256.h>
+#include <stdio.h>
 
 static void		prepare_message(t_sha *sha, t_reader reader)
 {
@@ -31,7 +32,16 @@ static void		prepare_message(t_sha *sha, t_reader reader)
 	ft_memcpy(sha->msg + ((N_WORDS_IN_CHUNK * sha->n_chunks) - 2), (uint64_t*)&sha->input_size_in_bits, BITS_IN_OCTET);
 	for (unsigned int i = 0; i < N_WORDS_IN_CHUNK * sha->n_chunks; i++)
 		sha->msg[i] = swap_32(sha->msg[i]);
-
+		for (uint64_t n_chunk = 0; n_chunk < sha->n_chunks; n_chunk++)
+		{
+			printf("Chunk %llu\n", n_chunk);
+			for (uint64_t i = 0; i < 16; i++)
+			{
+				printf("(%lli) %x\n", i, sha->msg[n_chunk * 16 + i]);
+			}
+		}
+		printf("\n");
+		printf("padded message: %s", (char*)sha->msg);
 }
 
 static void				print_digest(t_reader reader, uint32_t *words, int options)
@@ -60,16 +70,15 @@ static void				print_digest(t_reader reader, uint32_t *words, int options)
 static uint32_t	sigma(uint32_t value, unsigned int subscript)
 {
 	if (subscript == 0)
-		return (right_rotate(value, 7)
-				^ right_rotate(value, 18)
+		return (right_rotate_32(value, 7)
+				^ right_rotate_32(value, 18)
 				^ (value >> 3));
 	else if (subscript == 1)
-		return (right_rotate(value, 17)
-				^ right_rotate(value, 19)
+		return (right_rotate_32(value, 17)
+				^ right_rotate_32(value, 19)
 				^ (value >> 10));
 	return (0);
 }
-
 static void				exec_sha256_algorithm(t_sha *sha,
 								const uint32_t *k)
 {
@@ -84,7 +93,10 @@ static void				exec_sha256_algorithm(t_sha *sha,
 	{
 		ft_memcpy(&chunk, sha->msg + j * 16, 16 * sizeof(uint32_t));
 		ft_memcpy(&tmp_words, sha->words, N_WORDS * sizeof(uint32_t));
-		i = 15;
+		printf("\n");
+		for (int i = 0; i < 16; i++)
+			printf("%x\n", chunk[i]);
+			i = 15;
 		while (++i < 64)
 			chunk[i] = sigma(chunk[i - 15], 0)
 					+ sigma(chunk[i - 2], 1)
